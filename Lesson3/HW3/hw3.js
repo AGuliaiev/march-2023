@@ -10,27 +10,28 @@ for (let i = 0; i < 11; i++) {
 
 }
 
-const a = ['hkjhkhk','mhffkgfhy','jhgjgjg','jyrytydrees','nkjhkjh','kjselgj',`sdffgg`,`fses`,`efs`,`dfs`,`sef`,`sof`,`sf`,`asf`,`sefd`,`aef`,`saef`,`qwd`,`rq`,`aer`];
+
 let i = 0;
-while (i < a.length) {
-    let us = a[i];
-    console.log(`<h1>${us}</h1>`)
+while (i < 20) {
+
+    document.write(`<h1>Hello</h1>`)
     i++;
 }
 let j = 0;
-while (j< a.length) {
-    let us = a[j];
-    console.log(`<h1>${us} ${j}</h1>`)
+while (j< 20) {
+
+    document.write(`<h1>Some H1 with ${j} index</h1>`);
     j++;
 }
 
 let listOfItems = ['html', 'css', 'javascript', 'mysql', 'mongodb', 'react', 'angular', 'node.js'];
+document.write(`<ul>`)
+
 for (const listOfItem of listOfItems) {
-document.write(`<ul>
-<li>${listOfItem}</li>
-</ul>`
-)
+document.write(`<li>${listOfItem}</li>`)
 }
+document.write(`</ul>`);
+
 
 let products = [
     {
@@ -59,7 +60,7 @@ for (let k = 0; k < products.length; k++) {
 
         document.write(`<div class="product-card">
     <h3 class="product-title"> ${product.title} . Price - ${product.price}</h3>
-    <img src="${product.image}" alt="" class="product-image">
+    <img src="${product.image}" alt="" class="product-image" width="150px">
     </div>`);
 
 }
@@ -80,19 +81,20 @@ let users2 = [
     {name: 'max', age: 31, status: true}
 ];
 for (const users2Element of users2) {
-    if (users2Element.status === true) {
-        console.log(users2Element);
+    if (users2Element.status) {
+        document.write(`<div>${users2Element.name} ${users2Element.age} ${users2Element.status}</div>`);
     }
-
 }
+document.write(`<hr>`);
 for (const users2Element of users2) {
-    if (users2Element.status === false) {
-        console.log(users2Element);
+    if (!users2Element.status) {
+        document.write(`<div>${users2Element.name} ${users2Element.age} ${users2Element.status}</div>`);
     }
 }
+document.write(`<hr>`);
 for (const users2Element of users2) {
     if (users2Element.age > 30) {
-        console.log(users2Element);
+        document.write(`<div>${users2Element.name} ${users2Element.age} ${users2Element.status}</div>`);
     }
 }
 
