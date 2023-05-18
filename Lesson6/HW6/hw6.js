@@ -45,9 +45,9 @@
         } else if (direction === 'descending') {
             nums.sort((a, b) => b-a)
         }
-    return direction;
+    return nums;
     }
-    console.log(sortNums(nums, 'descending'))
+    console.log(sortNums(nums, 'ascending'))
     // console.log(nums.sort((a, b) => a - b))
 
 // ==========================
