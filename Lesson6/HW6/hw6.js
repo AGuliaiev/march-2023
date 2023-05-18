@@ -39,8 +39,16 @@
 // sortNums(nums,'ascending') // [3,11,21]
 // sortNums(nums,'descending') // [21,11,3]
     let nums = [11,21,3];
-    console.log(nums.sort((a, b) => b - a))
-    console.log(nums.sort((a, b) => a - b))
+    let sortNums = (nums, direction) => {
+        if (direction === 'ascending') {
+            nums.sort((a, b) => a-b)
+        } else if (direction === 'descending') {
+            nums.sort((a, b) => b-a)
+        }
+    return direction;
+    }
+    console.log(sortNums(nums, 'descending'))
+    // console.log(nums.sort((a, b) => a - b))
 
 // ==========================
 // - є масив
