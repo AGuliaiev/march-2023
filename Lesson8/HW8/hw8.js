@@ -190,12 +190,18 @@ class Prince {
 const prince = new Prince('Jhon', 35, 5);
 
     let foundCinderella = null;
-    for (let i = 0; i < cinderellas.length; i++) {
-        if (cinderellas[i].footSize === prince.foundShoe){
-            foundCinderella = cinderellas[i];
-        }
+for (const cinderella of cinderellas) {
+    if (cinderella.footSize === prince.foundShoe) {
+        console.log(cinderella)
+    }
 
 }
+//     for (let i = 0; i < cinderellas.length; i++) {
+//         if (cinderellas[i].footSize === prince.foundShoe){
+//             foundCinderella = cinderellas[i];
+//         }
+//
+// }
 
 if (foundCinderella) {
     console.log("Принц знайшов свою попелюшку:", foundCinderella.name);
