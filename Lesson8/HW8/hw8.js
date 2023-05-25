@@ -192,9 +192,8 @@ const prince = new Prince('Jhon', 35, 5);
     let foundCinderella = null;
 for (const cinderella of cinderellas) {
     if (cinderella.footSize === prince.foundShoe) {
-        console.log(cinderella)
+       foundCinderella = cinderella;
     }
-
 }
 //     for (let i = 0; i < cinderellas.length; i++) {
 //         if (cinderellas[i].footSize === prince.foundShoe){
