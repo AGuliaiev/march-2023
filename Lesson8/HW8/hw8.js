@@ -58,7 +58,7 @@ client.push(new Client(10, "James", "Taylor", "james.taylor@example.com", "90123
 console.log(client)
 
 // - Взяти масив (Client [] з попереднього завдання).Відсортувати його по кількості товарів в полі order по зростанню. (sort)
-console.log(client.sort((a, b) => a.order[2] - b.order[2]))
+console.log(client.sort((a, b) => a.order.length - b.order.length))
 //
 // - Створити функцію конструктор яка дозволяє створювати об'єкти car, з властивостями модель, виробник, рік випуску, максимальна швидкість, об'єм двигуна. додати в об'єкт функції:
 // -- drive () - яка виводить в консоль `їдемо зі швидкістю ${максимальна швидкість} на годину`
@@ -120,10 +120,11 @@ car.addDriver({ name: "John Doe", age: 30, license: "ABC123" });
             this.year = year;
             this.maxSpeed = maxSpeed;
             this.engineVolume = engineVolume;
-            this.drive = function () {
+        }
+            drive() {
                 console.log(`Їдемо зі швидкістю ${this.maxSpeed} км/год`);
             }
-            this.info = function () {
+            info() {
                 console.log("Інформація про автомобіль:");
                 console.log(`Модель: ${this.model}`);
                 console.log(`Виробник: ${this.manufacturer}`);
@@ -131,19 +132,19 @@ car.addDriver({ name: "John Doe", age: 30, license: "ABC123" });
                 console.log(`Максимальна швидкість: ${this.maxSpeed} км/год`);
                 console.log(`Об'єм двигуна: ${this.engineVolume} л`);
             }
-            this.increaseMaxSpeed = function (newSpeed){
+            increaseMaxSpeed(newSpeed) {
                 this.maxSpeed += newSpeed
                 console.log(`Максимальна швидкість збільшена на ${newSpeed} км/год. Нове значення: ${this.maxSpeed} км/год`);
             }
-            this.changeYear = function (newValue){
+            changeYear(newValue) {
                 this.year = newValue
                 console.log(`Рік випуску змінено на ${newValue}`)
             }
-            this.addDriver = function (driver){
+            addDriver(driver) {
                 this.driver = driver
                 console.log('Iнформація про водія:', driver);
             }
-        }
+
 
 }
 
@@ -187,10 +188,10 @@ class Prince {
     }
 }
 
-const prince = new Prince('Jhon', 35, 5);
+const prince = new Prince('Jhon', 35, 7.5);
 
     let foundCinderella = null;
-for (const cinderella of cinderellas) {
+    for (const cinderella of cinderellas) {
     if (cinderella.footSize === prince.foundShoe) {
        foundCinderella = cinderella;
     }
