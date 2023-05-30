@@ -203,6 +203,7 @@ const prince = new Prince('Jhon', 35, 7.5);
 //
 // }
 
+
 if (foundCinderella) {
     console.log("Принц знайшов свою попелюшку:", foundCinderella.name);
 } else {
