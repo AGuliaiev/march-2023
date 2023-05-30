@@ -237,6 +237,12 @@ for (const courArray of coursesArray) {
 // ------------------
 //
 //     - Створити довільний елемент з id = text та створити кнопку.Використовуючи JavaScript, зробіть так, щоб при натисканні на кнопку зникав елемент з id="text".
+let divIm = document.createElement('div');
+divIm.style.width = '300px';
+divIm.style.height = '500px';
+divIm.style.background = 'blue';
+divIm.style.display = 'flex';
+divIm.style.flexDirection = 'column'
 
 let button = document.createElement('button');
 button.id = 'buton';
@@ -260,8 +266,8 @@ buttonV.addEventListener('click', visibleElement);
 let divElement = document.createElement('img');
 divElement.id = 'text';
 divElement.src = 'https://upload.wikimedia.org/wikipedia/ru/9/9d/Maggie_Simpson.png';
-
-document.body.append(divElement, button, buttonV);
+divIm.append(button, buttonV, divElement);
+document.body.append(divIm);
 
 
 
@@ -279,6 +285,11 @@ function checkAge() {
     }
 }
 
+let div = document.createElement('div');
+div.style.width = '100vw';
+div.style.height = '200px';
+div.style.margin = '10px';
+
 
 let buttonIn = document.createElement('button');
 buttonIn.innerText = 'Перевірити вік';
@@ -287,5 +298,5 @@ let input = document.createElement('input');
 input.type = 'number';
 input.id = 'ageInput';
 input.placeholder = 'Ввидіть свій вік';
-
-document.body.append(buttonIn, input);
+div.append(input, buttonIn);
+document.body.append(div);
