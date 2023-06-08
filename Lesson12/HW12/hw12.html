@@ -9,16 +9,16 @@
 <script>
 
   // зробити файл users.html
-  let url = new URL('http://jsonplaceholder.typicode.com/users');
 
 
-  fetch(url)
+
+  fetch('http://jsonplaceholder.typicode.com/users')
       .then(value => value.json())
       .then(value => {
           for (const user of value) {
               let a = document.createElement('a');
-              a.innerText = 'show user ' + user.id;
-              a.href = 'details.html?data=' + JSON.stringify(user);
+              a.innerText = `id: ${user.id} name: ${user.name}`;
+              a.href = 'user-details.html?userId=' + JSON.stringify(user);
               a.style.display = 'block';
               document.body.appendChild(a)
           }
