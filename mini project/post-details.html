@@ -3,28 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #h1{
+            display: flex;
+            justify-content: center;
+        }
+        #postComment{
+            display: flex;
+        }
+        #postDetail{
+            width: 90%;
+            margin: 0 auto;
+            background-color: aqua;
+            padding: 20px;
+            /*display: flex;*/
+            /*flex-direction: column;*/
+            justify-items: center;
+            align-items: center;
+
+
+        }
+
+
+    </style>
 </head>
 <body>
-
+<div id="wrap">
 <script>
 
     const postId = new URL(location.href).searchParams.get('postId');
     console.log(postId);
+
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+        .then(response => response.json())
+        .then(post => {
+            const hPost = document.createElement('h1');
+            hPost.id = 'h1'
+            hPost.innerText = 'Post Details';
+            const postDetailsElement = document.createElement('div');
+            postDetailsElement.id = 'postDetail'
+            postDetailsElement.innerHTML = `<p>ID: ${post.id}</p>
+          <p>Title: ${post.title}</p>
+          <p>Body: ${post.body}</p>`;
+            document.body.append(hPost, postDetailsElement);
+        });
+
+
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-        .then(value => value.json())
+        .then(response => response.json())
         .then(comments => {
-            const postDiv = document.createElement("div");
-            comments.map(comment => {
-                console.log(comment);
 
-                const comDiv = document.createElement('div');
-                comDiv.innerText = `${comment.body} `
-                console.log(comDiv)
+            const h1 = document.createElement('h1');
+            h1.id = 'h1'
+            h1.innerText = 'Comments';
 
+
+            const postComment = document.createElement('div');
+            postComment.id = 'postComment';
+            comments.forEach(comment => {
+
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+
+
+                commentDiv.innerHTML = `<p>Name: ${comment.name}</p>
+            <p>Email: ${comment.email}</p>
+            <p>Body: ${comment.body}</p>`;
+            postComment.appendChild(commentDiv);
+                console.log(postComment)
+                document.body.append(h1, postComment)
             })
-
-
-
         })
 
     //         На странице post-details.html:
@@ -36,5 +84,6 @@
     //         post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.
     //         Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини і тд)
 </script>
+</div>
 </body>
 </html>

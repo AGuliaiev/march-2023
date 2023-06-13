@@ -4,13 +4,45 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .button{
-            width: 90vw;
+        #userBlock{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+
         }
+        #divUser{
+            display: inline-block;
+            width: 45%;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin: 10px;
+            box-sizing: border-box;
+
+
+        }
+        .button{
+            width: 50%;
+            font-size: 20px;
+        }
+        h1{
+            display: flex;
+            justify-content: center;
+            background-color: aqua;
+            width: 91%;
+            margin: 10px;
+
+
+        }
+        body{
+            width: 100vw;
+        }
+
     </style>
 </head>
 <body>
-<h1></h1>
+<h1>User information</h1>
 <script>
 
   // В index.html
@@ -22,23 +54,24 @@
 
   .then(value => value.json())
       .then(users => {
+                      users.map(user => {
+                  const divUser = document.createElement('div');
+                  divUser.id = 'divUser'
+              let divAll = document.createElement('div');
+              divAll.id = 'userBlock';
+              divAll.innerText = `Id: ${user.id} Name: ${user.name}`;
 
-              const block = document.createElement('wpap');
-
-              users.map(user => {
-              let div = document.createElement('div');
-              div.innerText = `Id: ${user.id} Name: ${user.name}`;
               const button = document.createElement('button');
               button.innerText = 'User Details';
               button.className = 'button';
               button.onclick = () => {
                   location.href = `user-details.html?userId=${user.id}`;
               }
+              divUser.append(divAll);
 
+              divAll.appendChild(button);
 
-              console.log(div)
-              block.append(div, button);
-              document.body.appendChild(block)
+              document.body.appendChild(divUser)
               });
       });
 
