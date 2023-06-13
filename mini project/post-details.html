@@ -1,89 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Post Details</title>
     <style>
-        #h1{
-            display: flex;
-            justify-content: center;
+        body {
+            text-align: center;
         }
-        #postComment{
-            display: flex;
-        }
-        #postDetail{
+
+        .post-details {
             width: 90%;
             margin: 0 auto;
-            background-color: aqua;
+            background-color: #f2f2f2;
             padding: 20px;
-            /*display: flex;*/
-            /*flex-direction: column;*/
-            justify-items: center;
-            align-items: center;
-
-
+            box-sizing: border-box;
         }
 
+        .post-details p {
+            margin: 0;
+        }
 
+        .comments {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .comment-block {
+            width: 23%;
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+
+        .comment-block p {
+            margin: 0;
+        }
+        #return{
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </head>
 <body>
-<div id="wrap">
+<h1>Post Details</h1>
+<div class="post-details" id="postDetails"></div>
+<h2>Comments</h2>
+<div class="comments" id="comments"></div>
 <script>
-
     const postId = new URL(location.href).searchParams.get('postId');
-    console.log(postId);
+    // const postId = urlParams.get('postId');
+    console.log(postId)
 
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
         .then(response => response.json())
         .then(post => {
-            const hPost = document.createElement('h1');
-            hPost.id = 'h1'
-            hPost.innerText = 'Post Details';
-            const postDetailsElement = document.createElement('div');
-            postDetailsElement.id = 'postDetail'
-            postDetailsElement.innerHTML = `<p>ID: ${post.id}</p>
+            const postDetailsElement = document.getElementById('postDetails');
+            postDetailsElement.innerHTML = `
+          <p>ID: ${post.id}</p>
           <p>Title: ${post.title}</p>
-          <p>Body: ${post.body}</p>`;
-            document.body.append(hPost, postDetailsElement);
+          <p>Body: ${post.body}</p>
+        `;
         });
-
 
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
         .then(response => response.json())
         .then(comments => {
+            const commentsElement = document.getElementById('comments');
 
-            const h1 = document.createElement('h1');
-            h1.id = 'h1'
-            h1.innerText = 'Comments';
-
-
-            const postComment = document.createElement('div');
-            postComment.id = 'postComment';
             comments.forEach(comment => {
-
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-
-
-                commentDiv.innerHTML = `<p>Name: ${comment.name}</p>
+                const commentBlock = document.createElement('div');
+                commentBlock.classList.add('comment-block');
+                commentBlock.innerHTML = `
+            <p>Name: ${comment.name}</p>
             <p>Email: ${comment.email}</p>
-            <p>Body: ${comment.body}</p>`;
-            postComment.appendChild(commentDiv);
-                console.log(postComment)
-                document.body.append(h1, postComment)
-            })
-        })
+            <p>Body: ${comment.body}</p>
+          `;
 
-    //         На странице post-details.html:
-    // 7 Вивести всю, без виключення, інформацію про об'єкт post на який клікнули .
-    // 8 Нижчє інформаці про пост, вивести всі коментарі поточного поста (ендпоінт  - https://jsonplaceholder.typicode.com/posts/POST_ID/comments)
-    //
+                commentsElement.appendChild(commentBlock);
+            });
+        });
+    const buttonReturn = document.createElement('button');
+    buttonReturn.innerText = 'Return Users';
+    buttonReturn.onclick = () => {
+        location.href = `http://localhost:63342/march-2023/mini%20project/index.html?_ijt=aepv8261rhgk8j793drkth1oua&_ij_reload=RELOAD_ON_SAVE`
+    }
+    const prevPage = document.createElement('button');
+    prevPage.innerText = 'Previous page';
+    prevPage.onclick = () => {
+        location.href = `http://localhost:63342/march-2023/mini%20project/post-list.html?userId=1`
+    }
+    const returnDiv = document.createElement('div');
+    returnDiv.id = 'return';
+    returnDiv.append(prevPage, buttonReturn)
 
+    document.body.appendChild(returnDiv);
 
-    //         post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.
-    //         Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини і тд)
 </script>
-</div>
 </body>
 </html>
