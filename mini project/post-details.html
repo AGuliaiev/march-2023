@@ -1,19 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Post Details</title>
     <style>
         body {
+            background-color: #cdd5f3;
             text-align: center;
         }
 
         .post-details {
             width: 90%;
             margin: 0 auto;
-            background-color: #f2f2f2;
+            background-color: #fcfcfc;
             padding: 20px;
             box-sizing: border-box;
+            border-style: outset;
         }
 
         .post-details p {
@@ -26,6 +27,7 @@
             justify-content: center;
             align-items: flex-start;
             margin-top: 20px;
+
         }
 
         .comment-block {
@@ -34,6 +36,7 @@
             padding: 10px;
             margin: 10px;
             box-sizing: border-box;
+            border-style: outset;
         }
 
         .comment-block p {
@@ -52,7 +55,6 @@
 <div class="comments" id="comments"></div>
 <script>
     const postId = new URL(location.href).searchParams.get('postId');
-    // const postId = urlParams.get('postId');
     console.log(postId)
 
     fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
@@ -86,18 +88,18 @@
     const buttonReturn = document.createElement('button');
     buttonReturn.innerText = 'Return Users';
     buttonReturn.onclick = () => {
-        location.href = `http://localhost:63342/march-2023/mini%20project/index.html?_ijt=aepv8261rhgk8j793drkth1oua&_ij_reload=RELOAD_ON_SAVE`
+        location.href = 'index.html'
     }
-    const prevPage = document.createElement('button');
-    prevPage.innerText = 'Previous page';
-    prevPage.onclick = () => {
-        location.href = `http://localhost:63342/march-2023/mini%20project/post-list.html?userId=1`
-    }
-    const returnDiv = document.createElement('div');
-    returnDiv.id = 'return';
-    returnDiv.append(prevPage, buttonReturn)
+    // const prevPage = document.createElement('button');
+    // prevPage.innerText = 'Previous page';
+    // prevPage.onclick = () => {
+    //     location.href = `post-list.html?userId=`
+    // }
+    // const returnDiv = document.createElement('div');
+    // returnDiv.id = 'return';
+    // returnDiv.append(prevPage, buttonReturn)
 
-    document.body.appendChild(returnDiv);
+    document.body.appendChild(buttonReturn);
 
 </script>
 </body>

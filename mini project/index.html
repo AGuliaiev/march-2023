@@ -4,27 +4,39 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        body{
+            background-color: cyan;
+        }
         #userBlock{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 35px;
+
 
         }
         #divUser{
             display: inline-block;
             width: 45%;
-            background-color: #f2f2f2;
             padding: 20px;
             margin: 10px;
             box-sizing: border-box;
-
+            background-color: #00e1ff;
+            border-style: ridge;
 
         }
         .button{
+            margin-top: 5px;
             width: 50%;
             font-size: 20px;
+            transition: 1s;
+            background-color: #f6d3cd;
+        }
+        :hover.button{
+            background-color: #f3b9b9;
+            transition: 2ms;
+            border-style: outset;
         }
         h1{
             display: flex;
