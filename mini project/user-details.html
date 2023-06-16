@@ -5,33 +5,25 @@
     <style>
         body{
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
             margin: 0;
-            padding: 20px;
-            background-color: #f6d3cd;
+            padding: 10px;
+
+            background-color: #cdf6f5;
         }
 
-        #block{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
 
-
-        }
         h1{
             width: 80vw;
             border-style: groove;
             display: flex;
             justify-content: center;
-            background-color: #e3b443;;
+            background-color: #efcb74;;
         }
         .buttonPost{
             width: 90vw;
-            background-color: bisque;
+            background-color: #eee7b6;
             transition: 2s;
             border-style: inset;
             font-size: 20px;
@@ -53,6 +45,36 @@
            width: 50vw;
 
        }
+       .postBack{
+           display: flex;
+           flex-direction: column;
+           font-size: 30px;
+           align-items: center;
+           justify-content: center;
+
+       }
+
+
+       #userDetails{
+
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           margin-bottom: 20px;
+       }
+
+       .ulBlock{
+           background-color: #0022ff;
+           border-style: outset;
+           width: 50vw;
+           display: flex;
+         flex-direction: column;
+           align-items: center;
+           color: white;
+       }
+       .button{
+           font-size: 20px;
+       }
 
 
     </style>
@@ -62,85 +84,114 @@
 <div class="block">
     <script>
         const userId = new URL(location.href).searchParams.get('userId');
+        const addedPosts = [];
+        const userDetails = document.createElement('div');
+        userDetails.id = 'userDetails';
+        const ul = document.createElement('ul');
+        ul.className = 'ulBlock';
 
         fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
             .then(response => response.json())
             .then(user => {
+                userInfo(user);
 
-                const block = document.createElement('div');
-                block.id = 'block'
-                const ul = document.createElement('ul');
-                ul.id = 'UL'
-                recursiveBuild(user, ul);
-                block.appendChild(ul);
                 const button = document.createElement('button');
-                button.className = 'buttonPost'
+                button.className = 'buttonPost';
                 button.innerText = 'Post of Current User';
                 button.onclick = () => {
-                    location.href = `post-list.html?userId=${userId}`
-                }
-                block.appendChild(button)
-                document.body.appendChild(block);
+                    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+                        .then((response) => response.json())
+                        .then((posts) => {
+                            posts.forEach(post => {
+                                if (!addedPosts.includes(post.id)) {
+                                    addedPosts.push(post.id);
+                                    const blockBack = document.createElement('div');
+                                    blockBack.className = 'postBack';
+
+                                    const postBlock = document.createElement('div');
+                                    postBlock.innerText = `Title: ${post.title}`;
+                                    postBlock.className = 'postText';
+
+                                    const buttonNext = document.createElement('button');
+                                    buttonNext.innerText = 'Post Details';
+                                    buttonNext.className = 'button';
+                                    buttonNext.onclick = () => {
+                                        location.href = `post-details.html?postId=${post.id}`;
+                                    };
+
+                                    blockBack.append(postBlock,buttonNext)
+                                    document.body.appendChild(blockBack);
+                                }
+                            });
+                        });
+                };
+
+                userDetails.append(ul, button);
+                document.body.appendChild(userDetails);
             });
 
-    function liCreator(key, value, parent) {
-            const li = document.createElement('li');
-            li.innerHTML = `<b>${key}:</b> ${value}`;
-            parent.appendChild(li);
-        }
+        function userInfo(user) {
+            for (const key in user) {
+                const value = user[key];
 
-        function ulBuilder(key, object, parent) {
-            const li = document.createElement('li');
-            const ul = document.createElement('ul');
-            li.innerHTML = `<b>${key}:</b>`;
-            parent.appendChild(li);
-            li.appendChild(ul);
-            recursiveBuild(object, ul);
-        }
-
-        function recursiveBuild(object, parent) {
-            for (const key in object) {
-                typeof object[key] === 'object'
-                    ? ulBuilder(key, object[key], parent)
-                    : liCreator(key, object[key], parent)
+                if (typeof value === 'object') {
+                    const li1 = document.createElement('li');
+                    li1.innerHTML = `<b>${key}:</b>`;
+                    ul.appendChild(li1);
+                    userInfo(value);
+                } else {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<b>${key}:</b> ${value}`;
+                    ul.appendChild(li);
+                }
             }
         }
+    //     const userId = new URL(location.href).searchParams.get('userId');
+    //
+    //     fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+    //         .then(response => response.json())
+    //         .then(user => {
+    //
+    //             const block = document.createElement('div');
+    //             block.id = 'block'
+    //             const ul = document.createElement('ul');
+    //             ul.id = 'UL'
+    //             recursiveBuild(user, ul);
+    //             block.appendChild(ul);
+    //             const button = document.createElement('button');
+    //             button.className = 'buttonPost'
+    //             button.innerText = 'Post of Current User';
+    //             button.onclick = () => {
+    //                 location.href = `post-list.html?userId=${userId}`
+    //             }
+    //             block.appendChild(button)
+    //             document.body.appendChild(block);
+    //         });
+    //
+    // function liCreator(key, value, parent) {
+    //         const li = document.createElement('li');
+    //         li.innerHTML = `<b>${key}:</b> ${value}`;
+    //         parent.appendChild(li);
+    //     }
+    //
+    //     function ulBuilder(key, object, parent) {
+    //         const li = document.createElement('li');
+    //         const ul = document.createElement('ul');
+    //         li.innerHTML = `<b>${key}:</b>`;
+    //         parent.appendChild(li);
+    //         li.appendChild(ul);
+    //         recursiveBuild(object, ul);
+    //     }
+    //
+    //     function recursiveBuild(object, parent) {
+    //         for (const key in object) {
+    //             typeof object[key] === 'object'
+    //                 ? ulBuilder(key, object[key], parent)
+    //                 : liCreator(key, object[key], parent)
+    //         }
+    //     }
 
-        //        const userId = new URL(location.href).searchParams.get('userId');
-        //        fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-        //            .then(response => response.json())
-        //            .then(users => {
-        //                userInfo(users)
-        //            });
-        //
-        //        const userDetails = document.createElement('div');
-        //        const ul = document.createElement('ul');
-        //        const button = document.createElement('button');
-        //        button.className = 'buttonPost'
-        //        button.innerText = 'Post of Current User';
-        //        button.onclick = () => {
-        //            location.href = `post-list.html?userId=${userId}`
-        //        }
-        //        userDetails.append(ul, button);
-        //        document.body.appendChild(userDetails);
-        //        function userInfo(user) {
-        //                    for (const key in user) {
-        //                        const value = user[key];
-        //
-        //                        if (typeof value === 'object') {
-        //                            const li1 = document.createElement('li');
-        //                            li1.innerHTML = `<b>${key}:</b>`;
-        //                            ul.appendChild(li1);
-        //                            displayUserInfo(value); // Рекурсивный вызов для вложенных объектов
-        //                        } else {
-        //                            const li = document.createElement('li');
-        //                            li.innerHTML = `<b>${key}:</b> ${value}`;
-        //                            ul.appendChild(li);
-        //                        }
-        //                    }
-        //           }
-
-        // На странице user-details.html:
+    // На странице user-details.html:
         // 4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
         // 5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера
         // (для получения постов используйте эндпоинт https://jsonplaceholder.typicode.com/users/USER_ID/posts)
